@@ -12,8 +12,12 @@ function Teachers() {
   }, []);
 
   let formElements = [{
-    label: "Name",
-    key: 'name',
+    label: "Firstname",
+    key: 'firstname',
+    type: 'text'
+  }, {
+    label: "Lastname",
+    key: 'lastname',
     type: 'text'
   }, {
     label: "Age",
@@ -38,7 +42,8 @@ function Teachers() {
     })
     const data = await response.json()
     setFormData({
-      name:"",
+      firstname:"",
+      lastname:"",
       age:"",
       grade:""
     })

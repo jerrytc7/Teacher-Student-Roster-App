@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Student({student:{name, grade, id},onDelete}) {
+function Student({student:{firstname, lastname, grade, id},onDelete}) {
 
     const deleteMe = async() => {
         const response = await fetch("http://localhost:3000/students/"+id,{
@@ -10,7 +10,7 @@ function Student({student:{name, grade, id},onDelete}) {
     }
     return (
         <div className="card">
-            <h1>{name}</h1>
+            <h1>{firstname} {lastname}</h1>
             <div>
                 grade:{grade}
             </div>

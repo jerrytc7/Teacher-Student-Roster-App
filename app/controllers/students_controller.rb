@@ -32,6 +32,6 @@ class StudentsController < ApplicationController
     private
 
     def student_params
-        params.permit(:name, :grade)
+        params.permit(:firstname, :lastname, :grade)
     end
 end

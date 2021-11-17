@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Teacher({teacher:{name, grade, age, id}, onDelete, setFocus}) {
+function Teacher({teacher:{firstname, lastname, grade, age, id}, onDelete, setFocus}) {
     const deleteMe = async() => {
         const response = await fetch("http://localhost:3000/teachers/"+id,{
             method: "DELETE"
@@ -9,7 +9,7 @@ function Teacher({teacher:{name, grade, age, id}, onDelete, setFocus}) {
     }
     return (
         <div className="card">
-            <h1>{name}</h1>
+            <h1>{firstname} {lastname}</h1>
             <div>Grade: {grade}</div>
             <div>Age: {age}</div>
             <div>

@@ -1,18 +1,45 @@
 import './App.css';
-import { BrowserRouter as Router } from "react-router-dom"
-import Navbar from './components/Navbar'
-import React, { useState } from "react"
-import UnauthenticatedApp from './components/UnauthenticatedApp';
+import React, { useState, useEffect } from 'react'
 import AuthenticatedApp from './components/AuthenticatedApp';
+import UnauthenticatedApp from './components/UnauthenticatedApp';
+import { BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
-  const [userData, setUserData] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null)
+  const [authChecked, setAuthChecked] = useState(false)
+
+  useEffect(() => {
+    fetch('/me', {
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then((user) => {
+            setCurrentUser(user)
+            setAuthChecked(true)
+          })
+        } else {
+          setAuthChecked(true)
+        }
+      })
+  }, [])
+
+  if(!authChecked) { return <div></div>}
   return (
     <Router>
-      <Navbar />
-      {userData === null ? <UnauthenticatedApp setUser={setUserData}/> : <AuthenticatedApp />}
+      {currentUser ? (
+          <AuthenticatedApp
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser}
+          />
+        ) : (
+          <UnauthenticatedApp
+            setCurrentUser={setCurrentUser}
+          />
+        )
+      }
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

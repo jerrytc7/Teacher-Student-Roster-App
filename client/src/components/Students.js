@@ -11,10 +11,14 @@ function Students() {
     }, []);
     
     let formElements = [{
-      label: "Name",
-      key: "name",
+      label: "Firstname",
+      key: "firstname",
       type: "string"
-    },{
+    }, {
+      label: "Lastname",
+      key: "lastname",
+      type: "string"
+    }, {
       label: "Grade",
       key: "grade",
       type: "number"
