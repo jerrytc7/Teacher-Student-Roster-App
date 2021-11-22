@@ -27,8 +27,7 @@ function Signup({ setCurrentUser }) {
             history.push('/teachers')
           })
         } else {
-          setCurrentUser({ username: "Jerry" })
-          history.push('/teachers')
+          history.push('/login')
           res.json().then(errors => {
             console.error(errors)
           })
