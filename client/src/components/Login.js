@@ -23,7 +23,7 @@ function Login({ setCurrentUser }) {
           })
         } else {
           res.json().then(errors => {
-            console.log(errors)
+            alert(errors.error)
           })
         }
       })

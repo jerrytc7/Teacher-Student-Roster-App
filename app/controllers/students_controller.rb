@@ -15,18 +15,16 @@ class StudentsController < ApplicationController
     end
 
     def create
-        student = Student.create(student_params)
-        if student.valid?
+            student = Student.create!(student_params)
             render json: student, status: :created
-        else
-            render json: {error: student.errors.full_messages}, status: :unprocessable_entity
-        end
+            rescue ActiveRecord::RecordInvalid => errors
+                render json: { errors: errors.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update
         @student.update(student_params)
         render json: student
-    rescue ActiveRecord::RecordInvalid => invalid
+    rescue ActiveRecord::RecordInvalid => errors
         render json: { errors: errors.record.errors.full_messages }, status: :unprocessable_entity
     end
 
@@ -38,7 +36,7 @@ class StudentsController < ApplicationController
     private
 
     def student_params
-        params.permit(:firstname, :lastname, :grade, :id, :student)
+        params.require(:student).permit(:firstname, :lastname, :grade, :id)
     end
 
     def set_student

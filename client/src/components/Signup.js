@@ -29,7 +29,7 @@ function Signup({ setCurrentUser }) {
         } else {
           history.push('/login')
           res.json().then(errors => {
-            console.error(errors)
+            alert(JSON.stringify(errors))
           })
         }
       })
