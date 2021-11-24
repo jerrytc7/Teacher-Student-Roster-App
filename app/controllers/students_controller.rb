@@ -2,8 +2,12 @@ class StudentsController < ApplicationController
     before_action :set_student, only: [:show, :update, :destroy]
 
     def index
-        students = Student.all
-        render json: students
+        if params[:teacher_id]
+            @students = Student.where(teacher_id: params[:teacher_id])
+        else
+            @students = Student.all
+        end
+        render json: @students
     end
 
     def show
@@ -17,8 +21,6 @@ class StudentsController < ApplicationController
     def create
             student = Student.create!(student_params)
             render json: student, status: :created
-            rescue ActiveRecord::RecordInvalid => errors
-                render json: { errors: errors.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update
@@ -36,7 +38,7 @@ class StudentsController < ApplicationController
     private
 
     def student_params
-        params.require(:student).permit(:firstname, :lastname, :grade, :id)
+        params.require(:student).permit(:firstname, :lastname, :grade, :id, :teacher_id)
     end
 
     def set_student

@@ -56,6 +56,12 @@ function Teachers() {
     setFocusedTeacher(teacher.id)
   }
 
+  const deleteStudent = (studentid, teacherid) => {
+    const tempTeachers = [...teachers]
+    tempTeachers[teacherid].students=tempTeachers[teacherid].students.filter((student) => student.id!==studentid)
+    setTeachers(tempTeachers)
+  }
+
   return (
     <div>
       <form>
@@ -69,7 +75,7 @@ function Teachers() {
         <button onClick={submit}>Submit</button>
       </form>
       <div className="card-container">
-        {teachers.map(teacher => <Teacher teacher={teacher} onDelete={() => {setTeachers(teachers.filter((t)=>{return teacher.id !== t.id}))} } setFocus={()=>focusTeacher(teacher)} />)}
+        {teachers.map(teacher => <Teacher teacher={teacher} onDeleteStudent={(studentid)=>deleteStudent(studentid, teacher.id)} onDelete={() => {setTeachers(teachers.filter((t)=>{return teacher.id !== t.id}))} } setFocus={()=>focusTeacher(teacher)} />)}
       </div>
     </div>
   );
