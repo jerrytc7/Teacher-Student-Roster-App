@@ -7,14 +7,16 @@ function Teacher({teacher:{firstname, lastname, grade, age, id, students}, onDel
         })
         if(response.ok){onDelete()}
     }
-
+        if (students==null) {
+            students=[]
+        }
     return (
         <div className="card">
             <h1>{firstname} {lastname}</h1>
             <div>Grade: {grade}</div>
             <div>Age: {age}</div>
             <div>Students: </div>
-            {students.map(({firstname, lastname, id})=> <div>{firstname} {lastname} </div>)}
+            {students.map(({firstname, lastname})=> <div>{firstname} {lastname} </div>)}
             <div>
                 <button onClick={deleteMe}>Delete</button>
                 <button onClick={setFocus}>Update</button>
